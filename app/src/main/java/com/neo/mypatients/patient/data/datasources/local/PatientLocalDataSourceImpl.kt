@@ -28,8 +28,12 @@ class PatientLocalDataSourceImpl(
         return patientDao.getUsersBySyncStatus(status)
     }
 
+    override suspend fun getPatient(id: Long): LocalPatient {
+        return patientDao.getPatientById(id)
+    }
+
     override fun getPatientsByOptionalFilters(
-        name: String?,
+        name: String,
         age: Int?,
         gender: Gender?
     ): Flow<List<LocalPatient>> {

@@ -35,7 +35,7 @@ hilt-work = "1.0.0"
 hilt-navigation = "1.2.0"
 
 # Room
-room = "2.6.1"
+room = "2.7.2"
 
 # Splash
 splashscreen = "1.0.1"
@@ -121,6 +121,6 @@ arch-core-testing = { module = "androidx.arch.core:core-testing", version.ref = 
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 

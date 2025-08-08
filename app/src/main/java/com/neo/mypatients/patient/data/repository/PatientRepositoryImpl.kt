@@ -10,6 +10,7 @@ import com.neo.mypatients.patient.data.datasources.local.model.LocalPatient
 import com.neo.mypatients.patient.data.datasources.local.model.SyncStatus
 import com.neo.mypatients.patient.data.datasources.remote.PatientRemoteDataSource
 import com.neo.mypatients.patient.data.mapper.toDomain
+import com.neo.mypatients.patient.data.mapper.toLocal
 import com.neo.mypatients.patient.domain.model.Patient
 import com.neo.mypatients.patient.domain.repository.PatientRepository
 import kotlinx.coroutines.async
@@ -24,9 +25,9 @@ class PatientRepositoryImpl(
     private val remoteDataSource: PatientRemoteDataSource
 ): PatientRepository {
 
-    override suspend fun upsertPatient(patient: LocalPatient): Resource<Unit, DataError.Local> {
+    override suspend fun upsertPatient(patient: Patient): Resource<Unit, DataError.Local> {
         return try {
-            localDataSource.upsertPatient(patient)
+            localDataSource.upsertPatient(patient.toLocal())
             Resource.Success(Unit)
         } catch (throwable: Throwable) {
             Resource.Error(GeneralExceptionHandler.getLocalError(throwable))
@@ -51,8 +52,17 @@ class PatientRepositoryImpl(
         }
     }
 
+    override suspend fun getPatient(id: Long): Resource<Patient, DataError.Local> {
+        return try {
+            val patient = localDataSource.getPatient(id)
+            Resource.Success(patient.toDomain())
+        } catch (throwable: Throwable) {
+            Resource.Error(GeneralExceptionHandler.getLocalError(throwable))
+        }
+    }
+
     override fun getPatientsByOptionalFilters(
-        name: String?,
+        name: String,
         age: Int?,
         gender: Gender?
     ): Flow<Resource<List<Patient>, DataError.Local>> {
