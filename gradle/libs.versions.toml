@@ -43,6 +43,9 @@ splashscreen = "1.0.1"
 # work manager
 work-runtime-ktx = "2.8.1"
 
+# styled-toast
+styleabletoast = "2.4.0"
+
 # Testing
 truth = "1.1.2"
 robolectric = "4.14"
@@ -107,6 +110,9 @@ splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "spla
 
 # Work Manager
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "work-runtime-ktx" }
+
+# Styled Toast
+styleabletoast = { module = "com.muddzdev:styleabletoast", version.ref = "styleabletoast" }
 
 # Testing
 truth = { module = "com.google.truth:truth", version.ref = "truth" }

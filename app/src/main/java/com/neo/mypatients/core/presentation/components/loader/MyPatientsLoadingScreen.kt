@@ -21,21 +21,18 @@ import com.neo.mypatients.R
 fun MyPatientsAppLoadingScreen(
     loadingMessage: String = stringResource(R.string.loading),
 ) {
-    Scaffold { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = innerPadding.calculateTopPadding()),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-        ) {
-            MyPatientsAppLoadingIndicator()
-            Text(
-                text = loadingMessage,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(horizontal = 20.dp),
-                textAlign = TextAlign.Center,
-            )
-        }
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        MyPatientsAppLoadingIndicator()
+        Text(
+            text = loadingMessage,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(horizontal = 20.dp),
+            textAlign = TextAlign.Center,
+        )
     }
 }

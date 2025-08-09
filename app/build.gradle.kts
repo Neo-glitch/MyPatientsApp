@@ -97,6 +97,8 @@ dependencies {
     // WorkManager
     implementation(libs.work.runtime.ktx)
 
+    implementation(libs.styleabletoast)
+
     // Testing
     implementation(libs.truth)
     androidTestImplementation(libs.truth)

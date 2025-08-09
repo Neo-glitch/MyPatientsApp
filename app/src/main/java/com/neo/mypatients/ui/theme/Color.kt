@@ -30,6 +30,9 @@ val md_theme_light_onErrorContainer = Color(0xFF410002)
 val md_theme_light_success = Color(0xFF2E7D32)
 val md_theme_light_warning = Color(0xFFF9A825)
 
+val md_theme_light_grey_100 = Color(0xFFF7F7F8)
+val md_theme_light_grey_200 = Color(0xFF999999)
+
 
 // 🌙 Dark Theme Colors
 val md_theme_dark_primary = Color(0xFF73C3FF)
@@ -60,3 +63,5 @@ val md_theme_dark_onErrorContainer = Color(0xFFFFDAD6)
 // Custom Extras
 val md_theme_dark_success = Color(0xFF81C784)
 val md_theme_dark_warning = Color(0xFFFFF59D)
+val md_theme_dark_grey_100 = Color(0xFFF7F7F8)
+val md_theme_dark_grey_200 = Color(0xFF999999)

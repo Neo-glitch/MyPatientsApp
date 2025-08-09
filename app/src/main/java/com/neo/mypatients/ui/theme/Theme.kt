@@ -10,6 +10,8 @@ import androidx.compose.ui.graphics.Color
 import md_theme_dark_background
 import md_theme_dark_error
 import md_theme_dark_errorContainer
+import md_theme_dark_grey_100
+import md_theme_dark_grey_200
 import md_theme_dark_onBackground
 import md_theme_dark_onError
 import md_theme_dark_onErrorContainer
@@ -31,6 +33,8 @@ import md_theme_dark_warning
 import md_theme_light_background
 import md_theme_light_error
 import md_theme_light_errorContainer
+import md_theme_light_grey_100
+import md_theme_light_grey_200
 import md_theme_light_onBackground
 import md_theme_light_onError
 import md_theme_light_onErrorContainer
@@ -139,13 +143,15 @@ fun getMyPatientColors(darkTheme: Boolean = isSystemInDarkTheme()): MyPatientCol
         MyPatientColors(
             warning = md_theme_light_warning,
             success = md_theme_light_success,
-            grey100Disabled = Color(0xFF999999)
+            grey200 = md_theme_light_grey_200,
+            grey100 = md_theme_light_grey_100
         )
     else
         MyPatientColors(
             warning = md_theme_dark_warning,
             success =md_theme_dark_success,
-            grey100Disabled = Color(0xFF999999)
+            grey200 = md_theme_dark_grey_200,
+            grey100 = md_theme_dark_grey_100
         )
 }
 

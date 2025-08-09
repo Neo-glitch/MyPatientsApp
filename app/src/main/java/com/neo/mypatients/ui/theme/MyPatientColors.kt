@@ -9,13 +9,15 @@ import androidx.compose.ui.graphics.Color
 data class MyPatientColors(
     val warning: Color,
     val success: Color,
-    val grey100Disabled: Color,
+    val grey100: Color,
+    val grey200: Color,
 )
 
 val LocalMyPatientColors = staticCompositionLocalOf {
     MyPatientColors(
         warning = Color.Unspecified,
         success = Color.Unspecified,
-        grey100Disabled = Color.Unspecified,
+        grey200 = Color.Unspecified,
+        grey100 = Color.Unspecified
     )
 }

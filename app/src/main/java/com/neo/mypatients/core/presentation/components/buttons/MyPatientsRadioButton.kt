@@ -77,7 +77,7 @@ private fun RadioUnchecked() {
             .size(20.dp)
             .border(
                 width = 1.5.dp,
-                color = MyPatientsAppTheme.colors.grey100Disabled,
+                color = MyPatientsAppTheme.colors.grey200,
                 shape = CircleShape
             )
     )
