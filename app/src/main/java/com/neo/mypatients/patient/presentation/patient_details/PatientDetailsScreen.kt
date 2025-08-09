@@ -172,7 +172,7 @@ private fun LoadedStateContent(modifier : Modifier = Modifier, patient: Patient,
 
         PatientDetailsSection(patient = patient, modifier = Modifier.padding(horizontal = 16.dp))
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(36.dp))
         MyPatientsAppPrimaryButton(
             modifier = Modifier.padding(horizontal = 16.dp),
             text = "Edit Patient Details",

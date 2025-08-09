@@ -38,7 +38,7 @@ fun MyPatientsAppTopBar(
                     Icon(
                         painter = painterResource(navigationAction.icon),
                         contentDescription = navigationAction.contentDescription,
-                        tint = navigationAction.tint
+                        tint = if (navigationAction.tint == Color.Unspecified) MaterialTheme.colorScheme.onSurface else navigationAction.tint
                     )
                 }
             }

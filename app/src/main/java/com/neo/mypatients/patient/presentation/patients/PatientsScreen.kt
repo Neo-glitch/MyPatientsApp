@@ -2,7 +2,6 @@ package com.neo.mypatients.patient.presentation.patients
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,14 +10,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -117,6 +114,10 @@ private fun PatientsScreenContent(
                     onPatientItemClick = onPatientItemClick,
                 )
 
+                is PatientsLoadState.Error -> ErrorStateContent(
+                    message = stringResource(uiState.loadState.message),
+                )
+
                 else -> Unit
             }
         }
@@ -174,11 +175,12 @@ private fun PatientsListContent(
 }
 
 @Composable
-private fun ErrorStateContent(modifier: Modifier = Modifier) {
+private fun ErrorStateContent(modifier: Modifier = Modifier, message: String) {
     MyPatientsAppEmptyScreen(
         modifier = modifier,
         title = "Something went wrong",
-        subtitle = "Please try again later"
+        subtitle = message,
+        image = R.drawable.ic_error_patients
     )
 }
 

@@ -12,6 +12,7 @@ data class PatientsUiState(
 )
 
 sealed interface PatientsLoadState {
+    data class Error(val message: Int): PatientsLoadState
     data object Idle: PatientsLoadState
     data object Loading: PatientsLoadState
     data object Success: PatientsLoadState

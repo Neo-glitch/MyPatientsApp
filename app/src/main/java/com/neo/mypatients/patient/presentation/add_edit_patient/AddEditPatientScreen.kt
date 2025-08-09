@@ -239,3 +239,32 @@ private fun AddEditPatientInfoLightModePreview() {
         }
     }
 }
+
+@Preview(showBackground = true, apiLevel = 34,
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
+)
+@Composable
+private fun AddEditPatientInfoDarkModePreview() {
+    MyPatientsTheme {
+        Surface {
+            AddEditPatientScreenContent(
+                uiState = AddEditPatientUiState(
+                    name = "John Doe",
+                    age = 30,
+                    gender = Gender.Male,
+                    phoneNumber = "1234567890",
+                    medicalCondition = "Hypertension",
+                    loadState = AddEditPatientLoadState.Idle
+                ),
+                isAddMode = true,
+                onBackPress = {},
+                onSaveClick = {},
+                onNameChane = {},
+                onAgeChange = {},
+                onGenderChange = {},
+                onPhoneNumberChange = {},
+                onMedicalConditionChange = {}
+            )
+        }
+    }
+}

@@ -36,10 +36,14 @@ import com.neo.mypatients.ui.theme.MyPatientsTheme
 fun PatientItem(modifier: Modifier = Modifier, patient: Patient, onItemClick: (Patient) -> Unit) {
     Card(
         modifier = modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.onSurface
+        ),
         onClick = {
             onItemClick(patient)
         },
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
         Row(
             modifier = Modifier
