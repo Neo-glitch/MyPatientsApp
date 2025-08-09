@@ -64,6 +64,8 @@ fun MyPatientsAppTextInputField(
     onDoneClicked: () -> Unit = {},
     onFocusChange: ((Boolean) -> Unit)? = null,
     autoFocus: Boolean = false,
+    readOnly: Boolean = false,
+    enableClearButton: Boolean = true,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
     trailingIcon: @Composable (() -> Unit)? = null,
@@ -74,7 +76,7 @@ fun MyPatientsAppTextInputField(
     val focusRequester = remember { FocusRequester() }
     val keyboardController = LocalSoftwareKeyboardController.current
     val showClearButton = remember(value, isFocused) {
-        value.isNotBlank() && isFocused
+        value.isNotBlank() && isFocused && enableClearButton
     }
     val isFocusedOrValueNotBlank = remember(value, isFocused) {
         isFocused || value.isNotBlank()
@@ -103,6 +105,7 @@ fun MyPatientsAppTextInputField(
                 }
                 .fillMaxWidth(),
             enabled = enabled,
+            readOnly = readOnly,
             textStyle = textStyle,
             singleLine = singleLine,
             maxLines = maxLines,

@@ -1,5 +1,6 @@
 package com.neo.mypatients.patient.presentation.patients
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -71,7 +73,7 @@ private fun PatientsScreenContent(
             )
         },
         floatingActionButton = {
-            FloatingActionButton (
+            FloatingActionButton(
                 onClick = onAddNewPatientItemClick,
             ) {
                 Icon(
@@ -180,9 +182,50 @@ private fun ErrorStateContent(modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(showBackground = true, apiLevel = 34,)
+@Preview(showBackground = true, apiLevel = 34)
 @Composable
-private fun PatientsScreenPreview() {
+private fun PatientsScreenLightModePreview() {
+    MyPatientsTheme {
+        Surface {
+            PatientsScreenContent(
+                onPatientItemClick = {},
+                onAddNewPatientItemClick = {},
+                onDeletePatientItemClick = {},
+                onQueryUpdate = {},
+                uiState = PatientsUiState(
+                    patients = listOf(
+                        Patient(
+                            name = "John Doe",
+                            age = 30,
+                            gender = Gender.Male,
+                            phoneNumber = "123-456-7890",
+                            medicalCondition = "Hypertension",
+                            syncStatus = SyncStatus.SYNCED,
+                            id = 1,
+                        ),
+                        Patient(
+                            name = "John Doe",
+                            age = 30,
+                            gender = Gender.Male,
+                            phoneNumber = "123-456-7890",
+                            medicalCondition = "Hypertension",
+                            syncStatus = SyncStatus.SYNCED,
+                            id = 2,
+                        ),
+                    ),
+                    loadState = PatientsLoadState.Success
+                )
+            )
+        }
+    }
+}
+
+@Preview(
+    showBackground = true, apiLevel = 34,
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
+)
+@Composable
+private fun PatientsScreenDarkModePreview() {
     MyPatientsTheme {
         Surface {
             PatientsScreenContent(

@@ -4,7 +4,7 @@ import com.neo.mypatients.patient.data.datasources.local.model.Gender
 
 data class AddEditPatientUiState(
     val name: String = "",
-    val age: String = "",
+    val age: Int = 0,
     val gender: Gender? = null,
     val phoneNumber: String = "",
     val medicalCondition: String = "",
@@ -13,7 +13,7 @@ data class AddEditPatientUiState(
 
 sealed interface AddEditPatientUiEvent {
     data object OnSuccess: AddEditPatientUiEvent
-    data object OnError: AddEditPatientUiEvent
+    data class OnError(val errorMsgStringRes: Int): AddEditPatientUiEvent
 }
 
 sealed interface AddEditPatientLoadState {

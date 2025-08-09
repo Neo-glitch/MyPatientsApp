@@ -8,12 +8,13 @@ data class PatientDetailsUiState (
 )
 
 sealed interface PatientDetailsUiEvent {
-    data object OnSuccess: PatientDetailsUiEvent
-    data object OnError: PatientDetailsUiEvent
+    data object OnDeleteSuccess: PatientDetailsUiEvent
+    data class OnError(val errorMsgStringRes: Int): PatientDetailsUiEvent
 }
 
 sealed interface PatientDetailsLoadState {
     data object Idle: PatientDetailsLoadState
-    data object Loading: PatientDetailsLoadState
+    data object PatientGetLoading: PatientDetailsLoadState
+    data object PatientDeleteLoading: PatientDetailsLoadState
     data object Success: PatientDetailsLoadState
 }
