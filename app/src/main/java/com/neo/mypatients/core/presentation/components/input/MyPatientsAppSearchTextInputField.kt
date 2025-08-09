@@ -13,7 +13,7 @@ fun MyPatientsAppSearchInputField(
     value: String,
     modifier: Modifier = Modifier,
     onValueChange: (String) -> Unit,
-    placeholder: String,
+    placeholder: String? = null,
 ) {
     MyPatientsAppTextInputField(
         value = value,

@@ -2,5 +2,8 @@
     <string name="app_name">MyPatients</string>
     <string name="loading">Loading…</string>
     <string name="continue_label">Continue</string>
-    <string name="cancel_label">Cancel</string>"
+    <string name="cancel_label">Cancel</string>
+    <string name="x_years_label">%s yrs</string>
+    <string name="empty_patients_in_db_desc">It appears you have added a patient to your list of patients</string>
+    <string name="empty_search_patients_desc">We couldn’t find any patients with those details</string>
 </resources>

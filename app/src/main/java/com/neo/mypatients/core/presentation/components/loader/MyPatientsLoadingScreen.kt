@@ -19,10 +19,11 @@ import com.neo.mypatients.R
 
 @Composable
 fun MyPatientsAppLoadingScreen(
+    modifier: Modifier = Modifier,
     loadingMessage: String = stringResource(R.string.loading),
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,

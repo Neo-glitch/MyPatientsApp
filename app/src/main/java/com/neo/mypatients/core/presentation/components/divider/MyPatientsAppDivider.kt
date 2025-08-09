@@ -9,11 +9,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun MyPatientsAppHorizontalDivider(modifier: Modifier = Modifier, height: Dp = 1.dp) {
+fun MyPatientsAppHorizontalDivider(
+    modifier: Modifier = Modifier,
+    height: Dp = 1.dp,
+    color: Color = MaterialTheme.colorScheme.outline
+) {
     HorizontalDivider(
         modifier = modifier
             .fillMaxWidth()
@@ -24,7 +29,11 @@ fun MyPatientsAppHorizontalDivider(modifier: Modifier = Modifier, height: Dp = 1
 }
 
 @Composable
-fun MyPatientsAppVerticalDivider(modifier: Modifier = Modifier, width: Dp = 1.dp) {
+fun MyPatientsAppVerticalDivider(
+    modifier: Modifier = Modifier,
+    width: Dp = 1.dp,
+    color: Color = MaterialTheme.colorScheme.outline
+) {
     VerticalDivider(
         modifier = modifier
             .fillMaxHeight()

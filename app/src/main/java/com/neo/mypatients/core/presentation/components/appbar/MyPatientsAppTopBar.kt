@@ -15,10 +15,10 @@ import androidx.compose.ui.text.style.TextOverflow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyPatientsAppBar(
+fun MyPatientsAppTopBar(
     modifier: Modifier = Modifier,
     title: String? = null,
-    navigationAction: AppBarAction,
+    navigationAction: AppBarAction? = null,
     actions: List<AppBarAction> = emptyList(),
 ) {
     TopAppBar(
@@ -29,16 +29,18 @@ fun MyPatientsAppBar(
         ),
         title = {
             title?.let {
-                Text(it, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleLarge)
+                Text(it, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.headlineSmall)
             }
         },
         navigationIcon = {
-            IconButton(onClick = navigationAction.onClick) {
-                Icon(
-                    painter = painterResource(navigationAction.icon),
-                    contentDescription = navigationAction.contentDescription,
-                    tint = navigationAction.tint
-                )
+            if (navigationAction != null) {
+                IconButton(onClick = navigationAction.onClick) {
+                    Icon(
+                        painter = painterResource(navigationAction.icon),
+                        contentDescription = navigationAction.contentDescription,
+                        tint = navigationAction.tint
+                    )
+                }
             }
         },
         actions = {

@@ -16,12 +16,13 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 
 @Composable
-fun SabiScreenScaffold(
+    fun MyPatientsAppScreenScaffold(
     modifier: Modifier = Modifier,
     contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     containerColor: Color = MaterialTheme.colorScheme.background,
-    topBar: @Composable (() -> Unit)? = null,
-    bottomBar: @Composable (() -> Unit)? = null,
+    topBar: @Composable (() -> Unit) = {},
+    bottomBar: @Composable (() -> Unit) = {},
+    floatingActionButton: @Composable (() -> Unit) = { },
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
@@ -36,8 +37,9 @@ fun SabiScreenScaffold(
                 }
             },
         containerColor = containerColor,
-        topBar = topBar ?: {},
-        bottomBar = bottomBar ?: {},
+        topBar = topBar,
+        bottomBar = bottomBar,
+        floatingActionButton = floatingActionButton ,
         content = content
     )
 }
