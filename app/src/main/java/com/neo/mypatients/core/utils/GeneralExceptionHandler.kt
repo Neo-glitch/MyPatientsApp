@@ -1,9 +1,8 @@
 package com.neo.mypatients.core.utils
 
 import android.database.sqlite.SQLiteException
-import com.neo.mypatients.core.domain.AppError
 import com.neo.mypatients.core.domain.DataError
-import com.neo.mypatients.core.network.NoConnectivityException
+import com.neo.mypatients.core.data.network.NoConnectivityException
 import kotlinx.coroutines.CancellationException
 import java.io.InterruptedIOException
 import java.net.SocketException

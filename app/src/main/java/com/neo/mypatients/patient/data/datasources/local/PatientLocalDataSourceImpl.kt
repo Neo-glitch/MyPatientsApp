@@ -1,6 +1,6 @@
 package com.neo.mypatients.patient.data.datasources.local
 
-import com.neo.mypatients.core.database.MyPatientAppDatabase
+import com.neo.mypatients.core.data.database.MyPatientAppDatabase
 import com.neo.mypatients.patient.data.datasources.local.model.Gender
 import com.neo.mypatients.patient.data.datasources.local.model.LocalPatient
 import com.neo.mypatients.patient.data.datasources.local.model.SyncStatus

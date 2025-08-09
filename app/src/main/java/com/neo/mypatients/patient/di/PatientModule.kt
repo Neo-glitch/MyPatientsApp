@@ -1,6 +1,6 @@
 package com.neo.mypatients.patient.di
 
-import com.neo.mypatients.core.database.MyPatientAppDatabase
+import com.neo.mypatients.core.data.database.MyPatientAppDatabase
 import com.neo.mypatients.patient.data.datasources.local.PatientLocalDataSource
 import com.neo.mypatients.patient.data.datasources.local.PatientLocalDataSourceImpl
 import com.neo.mypatients.patient.data.datasources.remote.PatientApi

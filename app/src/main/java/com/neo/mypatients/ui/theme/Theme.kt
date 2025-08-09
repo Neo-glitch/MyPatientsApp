@@ -1,16 +1,12 @@
 package com.neo.mypatients.ui.theme
 
-import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
 import md_theme_dark_background
 import md_theme_dark_error
 import md_theme_dark_errorContainer
@@ -141,17 +137,19 @@ fun MyPatientsTheme(
 fun getMyPatientColors(darkTheme: Boolean = isSystemInDarkTheme()): MyPatientColors {
     return if (darkTheme)
         MyPatientColors(
-            md_theme_light_warning,
-            md_theme_light_success,
+            warning = md_theme_light_warning,
+            success = md_theme_light_success,
+            grey100Disabled = Color(0xFF999999)
         )
     else
         MyPatientColors(
-            md_theme_dark_warning,
-            md_theme_dark_success,
+            warning = md_theme_dark_warning,
+            success =md_theme_dark_success,
+            grey100Disabled = Color(0xFF999999)
         )
 }
 
-object ExtendedTheme {
+object MyPatientsAppTheme {
     val colors: MyPatientColors
         @Composable
         get() = LocalMyPatientColors.current

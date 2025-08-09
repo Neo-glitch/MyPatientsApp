@@ -1,4 +1,4 @@
-package com.neo.mypatients.core.network
+package com.neo.mypatients.core.data.network
 
 import com.neo.mypatients.core.domain.DataError
 import com.neo.mypatients.core.domain.Resource

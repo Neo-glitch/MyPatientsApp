@@ -4,9 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.neo.mypatients.BuildConfig
-import com.neo.mypatients.MyPatientApp
-import com.neo.mypatients.core.database.MyPatientAppDatabase
-import com.neo.mypatients.core.network.NetworkConnectionInterceptor
+import com.neo.mypatients.core.data.database.MyPatientAppDatabase
+import com.neo.mypatients.core.data.network.NetworkConnectionInterceptor
 import com.neo.mypatients.core.utils.K
 import com.neo.mypatients.core.utils.K.API_TIMEOUT
 import dagger.Module

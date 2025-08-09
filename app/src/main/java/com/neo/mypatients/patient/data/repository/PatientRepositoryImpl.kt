@@ -2,7 +2,7 @@ package com.neo.mypatients.patient.data.repository
 
 import com.neo.mypatients.core.domain.DataError
 import com.neo.mypatients.core.domain.Resource
-import com.neo.mypatients.core.network.NetworkHelper
+import com.neo.mypatients.core.data.network.NetworkHelper
 import com.neo.mypatients.core.utils.GeneralExceptionHandler
 import com.neo.mypatients.patient.data.datasources.local.PatientLocalDataSource
 import com.neo.mypatients.patient.data.datasources.local.model.Gender
