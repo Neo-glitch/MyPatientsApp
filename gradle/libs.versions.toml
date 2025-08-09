@@ -112,7 +112,7 @@ splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "spla
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "work-runtime-ktx" }
 
 # Styled Toast
-styleabletoast = { module = "com.muddzdev:styleabletoast", version.ref = "styleabletoast" }
+styleabletoast = { module = "io.github.muddz:styleabletoast", version.ref = "styleabletoast" }
 
 # Testing
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
