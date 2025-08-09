@@ -1,37 +1,23 @@
 package com.neo.mypatients.patient.presentation.patient_details
 
 import android.content.res.Configuration
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,7 +28,8 @@ import com.neo.mypatients.core.presentation.components.MyPatientsAppScreenScaffo
 import com.neo.mypatients.core.presentation.components.appbar.AppBarAction
 import com.neo.mypatients.core.presentation.components.appbar.MyPatientsAppTopBar
 import com.neo.mypatients.core.presentation.components.buttons.MyPatientsAppPrimaryButton
-import com.neo.mypatients.core.presentation.components.input.MyPatientsAppTextInputField
+import com.neo.mypatients.core.presentation.components.dialog.DualButtonAlertDialog
+import com.neo.mypatients.core.presentation.components.dialog.SingleButtonAlertDialog
 import com.neo.mypatients.core.presentation.components.loader.MyPatientsAppLoadingScreen
 import com.neo.mypatients.patient.data.datasources.local.model.Gender
 import com.neo.mypatients.patient.data.datasources.local.model.SyncStatus
@@ -63,6 +50,7 @@ fun PatientDetailsScreen(
 
     var showDeleteAlertDialog by remember { mutableStateOf(false) }
     var showErrorAlertDialog by remember { mutableStateOf(false) }
+    var errorAlertDialogMsgRes by remember { mutableIntStateOf(0) }
 
     val state = viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -75,6 +63,7 @@ fun PatientDetailsScreen(
             when (uiEvent) {
                 is PatientDetailsUiEvent.OnError -> {
                     showErrorAlertDialog = true
+                    errorAlertDialogMsgRes = uiEvent.errorMsgStringRes
                 }
                 PatientDetailsUiEvent.OnDeleteSuccess -> {
                     onDeletePatientSuccess()
@@ -91,6 +80,30 @@ fun PatientDetailsScreen(
         },
         onBackPress = onBackPress,
     )
+
+    if (showErrorAlertDialog) {
+        SingleButtonAlertDialog(
+            onDismiss = { showErrorAlertDialog = false },
+            title = "Something went wrong",
+            onButtonClick = { showErrorAlertDialog = false },
+            content = stringResource(id = errorAlertDialogMsgRes)
+        )
+    }
+
+    if (showDeleteAlertDialog) {
+        DualButtonAlertDialog(
+            onDismiss = { showDeleteAlertDialog = false },
+            onPositiveButtonClick = {
+                showDeleteAlertDialog = false
+                viewModel.deletePatient()
+            },
+            onNegativeButtonClick = { showDeleteAlertDialog = false },
+            title = "Delete Patient Information",
+            content = "Are you sure you want to delete this patient information?",
+            positiveButtonText = "Delete",
+            negativeButtonText = "Cancel"
+        )
+    }
 }
 
 @Composable
@@ -198,6 +211,7 @@ private fun PatientDetailsSection(
         isReadOnly = true
     )
 }
+
 
 @Preview(showBackground = true, apiLevel = 34,
     uiMode = Configuration.UI_MODE_TYPE_NORMAL

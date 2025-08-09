@@ -2,8 +2,11 @@ package com.neo.mypatients.patient.presentation.patient_details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.neo.mypatients.core.domain.DataError
 import com.neo.mypatients.core.domain.Resource
+import com.neo.mypatients.core.utils.orZero
 import com.neo.mypatients.core.utils.toUiText
+import com.neo.mypatients.patient.domain.usecases.DeletePatientUseCase
 import com.neo.mypatients.patient.domain.usecases.GetPatientUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -16,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PatientDetailsViewModel @Inject constructor(
-    private val getPatientUseCase: GetPatientUseCase
+    private val getPatientUseCase: GetPatientUseCase,
+    private val deletePatientUseCase: DeletePatientUseCase,
 ): ViewModel() {
 
     private val _uiState = MutableStateFlow(PatientDetailsUiState())
@@ -41,6 +45,33 @@ class PatientDetailsViewModel @Inject constructor(
                     _uiState.update { it.copy(patient = patientResponse.data, loadState = PatientDetailsLoadState.Success) }
                 }
             }
+        }
+    }
+
+    fun deletePatient() {
+        viewModelScope.launch {
+            if (_uiState.value.patient == null) {
+                _uiEvent.emit(PatientDetailsUiEvent.OnError(
+                    errorMsgStringRes = DataError.Local.DATABASE_ERROR.toUiText()
+                ))
+                return@launch
+            }
+
+            _uiState.update { it.copy(loadState = PatientDetailsLoadState.PatientDeleteLoading) }
+            val deleteResponse = deletePatientUseCase(_uiState.value.patient!!)
+            when (deleteResponse) {
+                is Resource.Error -> {
+                    _uiState.update { it.copy(loadState = PatientDetailsLoadState.Idle) }
+                    _uiEvent.emit(PatientDetailsUiEvent.OnError(
+                        errorMsgStringRes = deleteResponse.error.toUiText()
+                    ))
+                }
+                is Resource.Success -> {
+                    _uiState.update { it.copy(loadState = PatientDetailsLoadState.Idle) }
+                    _uiEvent.emit(PatientDetailsUiEvent.OnDeleteSuccess)
+                }
+            }
+
         }
     }
 }
