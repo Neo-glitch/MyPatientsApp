@@ -19,13 +19,14 @@ interface PatientDao {
     @Query("DELETE FROM patients WHERE id = :id")
     suspend fun deletePatient(id: Long)
 
-    @Query("SELECT * FROM patients WHERE id = :id")
+    @Query("SELECT * FROM patients WHERE id = :id AND sync_status != 'PENDING_DELETE'")
     suspend fun getPatientById(id: Long): LocalPatient
 
     @Query("""
         SELECT * FROM patients
         WHERE name LIKE '%' || :name || '%'
-        ORDER BY id ASC
+        AND sync_status != 'PENDING_DELETE'
+        ORDER BY id DESC
     """)
     fun getPatientsByName(name: String): Flow<List<LocalPatient>>
 
