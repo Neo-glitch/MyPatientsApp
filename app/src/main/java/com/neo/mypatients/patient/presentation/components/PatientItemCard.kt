@@ -59,7 +59,7 @@ fun PatientItem(modifier: Modifier = Modifier, patient: Patient, onItemClick: (P
                 contentDescription = "Patient Image",
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(16.dp))
             PatientInfo(patient = patient)
         }
     }
@@ -76,7 +76,7 @@ private fun PatientInfo(patient: Patient) {
             overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.titleMedium
         )
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -88,7 +88,7 @@ private fun PatientInfo(patient: Patient) {
                 painter = painterResource(genderIcon),
                 contentDescription = "Gender icon"
             )
-            Spacer(modifier = Modifier.width(4.dp))
+            Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = patient.gender.name,
                 style = MaterialTheme.typography.bodyMedium

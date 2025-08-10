@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.neo.mypatients.core.domain.Resource
 import com.neo.mypatients.core.utils.toUiText
+import com.neo.mypatients.patient.domain.model.Patient
 import com.neo.mypatients.patient.domain.usecases.GetPatientsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -15,6 +16,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,11 +31,13 @@ class PatientsViewModel @Inject constructor(
     val uiState: StateFlow<PatientsUiState> = _uiState.asStateFlow()
 
     init {
+        _uiState.update { it.copy(loadState = PatientsLoadState.Loading) }
         viewModelScope.launch {
             _uiState.map { it.query }
+                .onStart { emit(_uiState.value.query) }
                 .distinctUntilChanged()
                 .flatMapLatest { query ->
-                    getPatientsUseCase(name = query, age = null, gender = null)
+                    getPatientsUseCase(name = query)
                 }
                 .collectLatest { patientsResponse ->
                     val patients = _uiState.value.patients
@@ -46,9 +50,10 @@ class PatientsViewModel @Inject constructor(
                             }
                         }
                         is Resource.Success -> {
+
                             _uiState.update {
                                 it.copy(
-                                    loadState = PatientsLoadState.Success,
+                                    loadState = if (patientsResponse.data.isEmpty()) PatientsLoadState.Empty else PatientsLoadState.Success,
                                     patients = patientsResponse.data
                                 )
                             }

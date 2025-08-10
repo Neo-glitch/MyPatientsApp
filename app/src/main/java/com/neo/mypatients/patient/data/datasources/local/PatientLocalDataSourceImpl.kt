@@ -32,11 +32,9 @@ class PatientLocalDataSourceImpl(
         return patientDao.getPatientById(id)
     }
 
-    override fun getPatientsByOptionalFilters(
+    override fun getPatientsByName(
         name: String,
-        age: Int?,
-        gender: Gender?
     ): Flow<List<LocalPatient>> {
-        return patientDao.getUsersByOptionalFilters(name, age, gender)
+        return patientDao.getPatientsByName(name)
     }
 }

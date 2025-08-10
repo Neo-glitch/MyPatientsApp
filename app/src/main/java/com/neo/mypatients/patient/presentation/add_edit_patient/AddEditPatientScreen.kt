@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -17,12 +18,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -32,6 +35,7 @@ import com.neo.mypatients.core.presentation.components.MyPatientsAppScreenScaffo
 import com.neo.mypatients.core.presentation.components.appbar.AppBarAction
 import com.neo.mypatients.core.presentation.components.appbar.MyPatientsAppTopBar
 import com.neo.mypatients.core.presentation.components.buttons.MyPatientsAppPrimaryButton
+import com.neo.mypatients.core.presentation.components.dialog.SingleButtonAlertDialog
 import com.neo.mypatients.patient.data.datasources.local.model.Gender
 import com.neo.mypatients.patient.presentation.components.AddEditPatientForm
 import com.neo.mypatients.patient.presentation.components.PatientProfileHeader
@@ -47,6 +51,7 @@ fun AddEditPatientScreen(
 ) {
 
     var showErrorAlertDialog by remember { mutableStateOf(false) }
+    var errorAlertDialogMsgRes by remember { mutableIntStateOf(0) }
     val state = viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
@@ -57,8 +62,10 @@ fun AddEditPatientScreen(
         viewModel.uiEvent.collectLatest { uiEvent ->
             when (uiEvent) {
                 is AddEditPatientUiEvent.OnError -> {
-
+                    showErrorAlertDialog = true
+                    errorAlertDialogMsgRes = uiEvent.errorMsgStringRes
                 }
+
                 AddEditPatientUiEvent.OnSuccess -> {
                     onEditCompleted()
                 }
@@ -70,15 +77,25 @@ fun AddEditPatientScreen(
         uiState = state.value,
         isAddMode = patientId == null,
         onBackPress = onBackPress,
-        onSaveClick = {
-//            viewModel.sa
-        },
-        onNameChane = {},
-        onAgeChange = {},
-        onGenderChange = {},
-        onPhoneNumberChange = {},
-        onMedicalConditionChange = {}
+        onSaveClick = viewModel::savePatientDetails,
+        onNameChane = viewModel::updateName,
+        onAgeChange = viewModel::updateAge,
+        onGenderChange = viewModel::updateGender,
+        onPhoneNumberChange = viewModel::updatePhoneNumber,
+        onMedicalConditionChange = viewModel::updateMedicalCondition
     )
+
+    if (showErrorAlertDialog) {
+        SingleButtonAlertDialog(
+            onDismiss = { showErrorAlertDialog = false },
+            title = "Something went wrong",
+            onButtonClick = {
+                showErrorAlertDialog = false
+                onBackPress()
+            },
+            content = stringResource(id = errorAlertDialogMsgRes)
+        )
+    }
 }
 
 @Composable
@@ -108,9 +125,10 @@ private fun AddEditPatientScreenContent(
             )
         },
     ) { innerPadding ->
-        val isButtonEnabled by remember {
+        val isButtonEnabled by remember(uiState) {
             derivedStateOf {
-                uiState.name.isNotBlank() && uiState.age > 0 && uiState.gender != null && uiState.phoneNumber.isNotBlank() && uiState.medicalCondition.isNotBlank()
+                val age = uiState.age.toIntOrNull() ?: 0
+                uiState.name.isNotBlank() && age > 0 && uiState.gender != null && uiState.phoneNumber.isNotBlank() && uiState.phoneNumber.length == 11 && uiState.medicalCondition.isNotBlank()
             }
         }
         Column(
@@ -150,7 +168,7 @@ private fun AddEditPatientScreenContent(
 private fun AddEditMainContent(
     modifier: Modifier = Modifier,
     name: String,
-    age: Int,
+    age: String,
     gender: Gender?,
     phoneNumber: String,
     medicalCondition: String,
@@ -162,7 +180,9 @@ private fun AddEditMainContent(
     onMedicalConditionChange: (String) -> Unit,
 ) {
     Column(
-        modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState())
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
     ) {
         PatientProfileHeader()
         Spacer(modifier = Modifier.height(40.dp))
@@ -170,7 +190,7 @@ private fun AddEditMainContent(
         AddEditPatientForm(
             modifier = Modifier.padding(horizontal = 16.dp),
             fullName = name,
-            age = age.toString(),
+            age = age,
             gender = gender,
             phoneNumber = phoneNumber,
             medicalCondition = medicalCondition,
@@ -211,7 +231,8 @@ private fun BottomContent(
     }
 }
 
-@Preview(showBackground = true, apiLevel = 34,
+@Preview(
+    showBackground = true, apiLevel = 34,
     uiMode = Configuration.UI_MODE_TYPE_NORMAL
 )
 @Composable
@@ -221,7 +242,7 @@ private fun AddEditPatientInfoLightModePreview() {
             AddEditPatientScreenContent(
                 uiState = AddEditPatientUiState(
                     name = "John Doe",
-                    age = 30,
+                    age = "30",
                     gender = Gender.Male,
                     phoneNumber = "1234567890",
                     medicalCondition = "Hypertension",
@@ -240,7 +261,8 @@ private fun AddEditPatientInfoLightModePreview() {
     }
 }
 
-@Preview(showBackground = true, apiLevel = 34,
+@Preview(
+    showBackground = true, apiLevel = 34,
     uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
 )
 @Composable
@@ -250,7 +272,7 @@ private fun AddEditPatientInfoDarkModePreview() {
             AddEditPatientScreenContent(
                 uiState = AddEditPatientUiState(
                     name = "John Doe",
-                    age = 30,
+                    age = "30",
                     gender = Gender.Male,
                     phoneNumber = "1234567890",
                     medicalCondition = "Hypertension",

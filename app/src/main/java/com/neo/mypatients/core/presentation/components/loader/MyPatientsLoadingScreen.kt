@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.neo.mypatients.R
 
@@ -21,6 +22,7 @@ import com.neo.mypatients.R
 fun MyPatientsAppLoadingScreen(
     modifier: Modifier = Modifier,
     loadingMessage: String = stringResource(R.string.loading),
+    indicatorSize: Dp = 16.dp
 ) {
     Column(
         modifier = modifier
@@ -28,7 +30,9 @@ fun MyPatientsAppLoadingScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        MyPatientsAppLoadingIndicator()
+        MyPatientsAppLoadingIndicator(
+            size = indicatorSize
+        )
         Text(
             text = loadingMessage,
             style = MaterialTheme.typography.bodyMedium,

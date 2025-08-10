@@ -13,13 +13,9 @@ class GetPatientsUseCase(
 
     operator fun invoke(
         name: String = "",
-        age: Int?,
-        gender: Gender?
     ): Flow<Resource<List<Patient>, DataError.Local>> {
-        return repository.getPatientsByOptionalFilters(
+        return repository.getPatientsByName(
             name = name,
-            age = age,
-            gender = gender
         )
     }
 }

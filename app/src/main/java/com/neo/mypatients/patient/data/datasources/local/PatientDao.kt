@@ -26,16 +26,10 @@ interface PatientDao {
 
     @Query("""
         SELECT * FROM patients
-        WHERE sync_status != 'PENDING_DELETE'
-        AND (:name == '' OR LOWER(name) LIKE '%' || LOWER(:name) || '%')
-        AND (:age IS NULL OR age = :age)
-        AND (:gender IS NULL OR gender = :gender)
+        WHERE name LIKE '%' || :name || '%'
+        ORDER BY id ASC
     """)
-    fun getUsersByOptionalFilters(
-        name: String,
-        age: Int? = null,
-        gender: Gender? = null
-    ): Flow<List<LocalPatient>>
+    fun getPatientsByName(name: String): Flow<List<LocalPatient>>
 
     @Query("SELECT * FROM patients WHERE sync_status = :status")
     suspend fun getUsersBySyncStatus(status: SyncStatus): List<LocalPatient>

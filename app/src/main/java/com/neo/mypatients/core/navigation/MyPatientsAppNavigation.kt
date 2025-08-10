@@ -33,11 +33,6 @@ fun MyPatientsAppNavigation(
                     navController.navigate(
                         AddEditPatientDetailsScreen()
                     )
-                },
-                onDeletePatientItemClick = { patient ->
-                    navController.navigate(
-                        PatientDetailsScreen(patient.id)
-                    )
                 }
             )
         }

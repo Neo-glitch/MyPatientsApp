@@ -17,10 +17,8 @@ interface PatientRepository {
 
     suspend fun getPatient(id: Long): Resource<Patient, DataError.Local>
 
-    fun getPatientsByOptionalFilters(
+    fun getPatientsByName(
         name: String = "",
-        age: Int? = null,
-        gender: Gender? = null
     ): Flow<Resource<List<Patient>, DataError.Local>>
 
     suspend fun syncPatients(): Resource<Unit, DataError.Remote>

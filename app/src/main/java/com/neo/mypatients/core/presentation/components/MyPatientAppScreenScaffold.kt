@@ -29,13 +29,14 @@ import androidx.compose.ui.platform.LocalFocusManager
 
     Scaffold(
         modifier = modifier
-            .consumeWindowInsets(WindowInsets.systemBars)
+//            .consumeWindowInsets(WindowInsets.systemBars)
             .fillMaxSize()
             .pointerInput(Unit) {
                 detectTapGestures {
                     focusManager.clearFocus()
                 }
             },
+        contentWindowInsets = contentWindowInsets,
         containerColor = containerColor,
         topBar = topBar,
         bottomBar = bottomBar,

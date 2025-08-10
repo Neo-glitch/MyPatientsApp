@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.neo.mypatients.R
 
@@ -34,9 +35,9 @@ fun MyPatientsAppEmptyScreen(
             modifier = Modifier.size(200.dp)
         )
         Spacer(modifier = Modifier.height(20.dp))
-        Text(title, style = MaterialTheme.typography.titleMedium)
+        Text(title, style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center)
         Spacer(modifier = Modifier.height(10.dp))
-        Text(subtitle, style = MaterialTheme.typography.bodyMedium)
+        Text(subtitle, style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
     }
 
 }

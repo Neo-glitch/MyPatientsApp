@@ -29,7 +29,6 @@ class PatientAppModule {
     private val json = Json {
         coerceInputValues = true
         ignoreUnknownKeys = true
-        isLenient = true
     }
 
     @Singleton
@@ -40,7 +39,7 @@ class PatientAppModule {
         return Room.databaseBuilder(
             context,
             MyPatientAppDatabase::class.java,
-            "newsy_db"
+            "my_patients_db"
         )
             .build()
     }
@@ -65,11 +64,12 @@ class PatientAppModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        val contentType = "application/json".toMediaType()
         return Retrofit.Builder()
             .baseUrl(K.BASE_URL)
-            .client(provideOkHttpClient())
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+            .client(okHttpClient)
+            .addConverterFactory(json.asConverterFactory(contentType))
             .build()
     }
 

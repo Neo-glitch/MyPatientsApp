@@ -61,12 +61,10 @@ class PatientRepositoryImpl(
         }
     }
 
-    override fun getPatientsByOptionalFilters(
+    override fun getPatientsByName(
         name: String,
-        age: Int?,
-        gender: Gender?
     ): Flow<Resource<List<Patient>, DataError.Local>> {
-        return localDataSource.getPatientsByOptionalFilters(name, age, gender)
+        return localDataSource.getPatientsByName(name)
             .map { patients ->
                 Resource.Success(patients.map { it.toDomain() })
             }.catch { throwable ->
@@ -85,14 +83,14 @@ class PatientRepositoryImpl(
             val pendingInsertPatients = localDataSource.getPatientBySyncStatus(SyncStatus.PENDING_CREATE)
 
             supervisorScope {
-                val response = listOf(
+                val responses = listOf(
                     async { syncPendingDeletePatients(pendingDeletePatients) },
                     async { syncPendingUpdatePatients(pendingUpdatePatients) },
                     async { syncPendingInsertPatients(pendingInsertPatients) }
                 ).awaitAll()
 
-                if (response.any { it is Resource.Error }) {
-                    result = response.first { it is Resource.Error } as Resource.Error
+                if (responses.any { it is Resource.Error }) {
+                    result = responses.first { it is Resource.Error } as Resource.Error
                 }
             }
 

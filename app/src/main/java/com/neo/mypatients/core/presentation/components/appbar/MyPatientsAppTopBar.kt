@@ -29,7 +29,7 @@ fun MyPatientsAppTopBar(
         ),
         title = {
             title?.let {
-                Text(it, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.headlineSmall)
+                Text(it, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleLarge)
             }
         },
         navigationIcon = {

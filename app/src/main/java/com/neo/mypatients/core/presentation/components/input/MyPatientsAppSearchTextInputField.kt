@@ -27,7 +27,7 @@ fun MyPatientsAppSearchInputField(
     MyPatientsAppTextInputField(
         value = value,
         onValueChange = { newText ->
-            text = newText
+            onValueChange(newText)
         },
         modifier = modifier,
         placeholder = placeholder,
@@ -40,8 +40,8 @@ fun MyPatientsAppSearchInputField(
         }
     )
 
-    LaunchedEffect(text) {
-        delay(300)
-        onValueChange(text)
-    }
+//    LaunchedEffect(text) {
+//        delay(300)
+//        onValueChange(text)
+//    }
 }

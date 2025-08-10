@@ -55,6 +55,7 @@ fun AddEditPatientForm(
             keyboardType = KeyboardType.Text,
             imeAction = ImeAction.Next,
             readOnly = isReadOnly,
+            placeHolder = "Full name",
             enableClearButton = !isReadOnly,
             trailingIcon = {
                 Icon(
@@ -67,6 +68,7 @@ fun AddEditPatientForm(
 
         InputDetailItem(
             label = "Age",
+            placeHolder = "Age",
             value = if (isReadOnly) stringResource(R.string.x_years_label, age.orEmpty) else age.orEmpty,
             onValueChange = onAgeChange,
             keyboardType = KeyboardType.Number,
@@ -78,6 +80,7 @@ fun AddEditPatientForm(
         if (isReadOnly) {
             InputDetailItem(
                 label = "Gender",
+                placeHolder = "Gender",
                 value = gender?.name.orEmpty,
                 onValueChange = {},
                 readOnly = true,
@@ -106,7 +109,9 @@ fun AddEditPatientForm(
             keyboardType = KeyboardType.Number,
             imeAction = ImeAction.Next,
             readOnly = isReadOnly,
+            maxLength = 11,
             enableClearButton = !isReadOnly,
+            placeHolder = "Phone number",
             trailingIcon = {
                 Icon(
                     painter = painterResource(R.drawable.ic_phone),
@@ -124,6 +129,7 @@ fun AddEditPatientForm(
             imeAction = ImeAction.Done,
             readOnly = isReadOnly,
             enableClearButton = !isReadOnly,
+            placeHolder = "Medical Condition",
             trailingIcon = {
                 Icon(
                     painter = painterResource(R.drawable.ic_medical_condition),
@@ -139,7 +145,9 @@ fun AddEditPatientForm(
 private fun InputDetailItem(
     modifier: Modifier = Modifier,
     label: String,
+    placeHolder: String,
     value: String,
+    maxLength: Int? = null,
     onValueChange: (String) -> Unit,
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Done,
@@ -154,6 +162,8 @@ private fun InputDetailItem(
             value = value,
             onValueChange = onValueChange,
             readOnly = readOnly,
+            placeholder = placeHolder,
+            maxLength = maxLength,
             enableClearButton = enableClearButton && !readOnly,
             keyboardType = keyboardType,
             imeAction = imeAction,

@@ -171,6 +171,7 @@ private fun PatientDetailsScreenContent(
 private fun LoadingStateContent(modifier: Modifier = Modifier, loadingMessage: String) {
     MyPatientsAppLoadingScreen(
         modifier = modifier.padding(horizontal = 16.dp),
+        indicatorSize = 32.dp,
         loadingMessage = loadingMessage,
     )
 }

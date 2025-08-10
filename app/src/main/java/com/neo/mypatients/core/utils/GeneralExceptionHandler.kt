@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteException
 import com.neo.mypatients.core.domain.DataError
 import com.neo.mypatients.core.data.network.NoConnectivityException
 import kotlinx.coroutines.CancellationException
+import retrofit2.HttpException
 import java.io.InterruptedIOException
 import java.net.SocketException
 import java.net.UnknownHostException
@@ -14,6 +15,7 @@ object GeneralExceptionHandler {
         throwable.printStackTrace()
         return when(throwable) {
             is CancellationException -> throw throwable
+            is HttpException -> DataError.Remote.SERVER
             is NoConnectivityException -> DataError.Remote.NO_INTERNET
             is UnknownHostException -> DataError.Remote.UNKNOWN
             is InterruptedIOException -> DataError.Remote.REQUEST_TIMEOUT
