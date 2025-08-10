@@ -33,7 +33,7 @@ object PatientModule {
     @Singleton
     @Provides
     fun providePatientLocalDataSource(database: MyPatientAppDatabase) : PatientLocalDataSource {
-        return PatientLocalDataSourceImpl(database)
+        return PatientLocalDataSourceImpl(database.patientDao)
     }
 
     @Singleton

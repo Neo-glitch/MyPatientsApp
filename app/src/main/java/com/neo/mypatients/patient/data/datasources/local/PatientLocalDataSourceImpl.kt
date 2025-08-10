@@ -1,16 +1,12 @@
 package com.neo.mypatients.patient.data.datasources.local
 
-import com.neo.mypatients.core.data.database.MyPatientAppDatabase
-import com.neo.mypatients.patient.data.datasources.local.model.Gender
 import com.neo.mypatients.patient.data.datasources.local.model.LocalPatient
 import com.neo.mypatients.patient.data.datasources.local.model.SyncStatus
 import kotlinx.coroutines.flow.Flow
 
 class PatientLocalDataSourceImpl(
-    private val database: MyPatientAppDatabase
+    private val patientDao: PatientDao
 ): PatientLocalDataSource {
-
-    private val patientDao = database.patientDao
 
     override suspend fun upsertPatient(patient: LocalPatient) {
         patientDao.upsertPatient(patient)
@@ -25,7 +21,7 @@ class PatientLocalDataSourceImpl(
     }
 
     override suspend fun getPatientBySyncStatus(status: SyncStatus): List<LocalPatient> {
-        return patientDao.getUsersBySyncStatus(status)
+        return patientDao.getPatientsBySyncStatus(status)
     }
 
     override suspend fun getPatient(id: Long): LocalPatient {

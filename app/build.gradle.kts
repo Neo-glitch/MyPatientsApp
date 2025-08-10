@@ -186,4 +186,5 @@ dependencies {
 //    // helper to test android arch components e.g viewmodel, livedata and also helps exec arch components synchronously
 //    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
 //    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation(kotlin("test"))
 }
