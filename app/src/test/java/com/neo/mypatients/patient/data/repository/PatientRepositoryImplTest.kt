@@ -46,7 +46,7 @@ class PatientRepositoryImplTest {
     }
 
     @Test
-    fun `upsertPatient should return Success when dao call succeeds`() = runTest {
+    fun `upsertPatient should return Success when localDatasource call succeeds`() = runTest {
         val patient = dummyPatient
         whenever(localDataSource.upsertPatient(any())).thenReturn(Unit)
         val result = repository.upsertPatient(patient)
@@ -56,7 +56,7 @@ class PatientRepositoryImplTest {
     }
 
     @Test
-    fun `upsertPatient should return Error when dao throws exception`() = runTest {
+    fun `upsertPatient should return Error when localDatasource throws exception`() = runTest {
         val patient = dummyPatient
         whenever(localDataSource.upsertPatient(any())).thenThrow(IllegalArgumentException())
         val result = repository.upsertPatient(patient)
@@ -65,7 +65,7 @@ class PatientRepositoryImplTest {
     }
 
     @Test
-    fun `softDeletePatient should return Success when dao call succeeds`() = runTest {
+    fun `softDeletePatient should return Success when localDatasource call succeeds`() = runTest {
         whenever(localDataSource.softDeletePatient(any())).thenReturn(Unit)
 
         val result = repository.softDeletePatient(1L)
@@ -75,7 +75,7 @@ class PatientRepositoryImplTest {
     }
 
     @Test
-    fun `deletePatient should return Success when dao call succeeds`() = runTest {
+    fun `deletePatient should return Success when localDatasource call succeeds`() = runTest {
         whenever(localDataSource.deletePatient(any())).thenReturn(Unit)
 
         val result = repository.deletePatient(1L)
