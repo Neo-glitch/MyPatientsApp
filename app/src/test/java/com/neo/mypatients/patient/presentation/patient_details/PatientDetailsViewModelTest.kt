@@ -6,8 +6,6 @@ import com.neo.mypatients.MainDispatcherRule
 import com.neo.mypatients.patient.FakePatientRepository
 import com.neo.mypatients.patient.domain.usecases.DeletePatientUseCase
 import com.neo.mypatients.patient.domain.usecases.GetPatientUseCase
-import com.neo.mypatients.patient.presentation.add_edit_patient.AddEditPatientLoadState
-import com.neo.mypatients.patient.presentation.add_edit_patient.AddEditPatientUiEvent
 import com.neo.mypatients.utils.dummyPatients
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

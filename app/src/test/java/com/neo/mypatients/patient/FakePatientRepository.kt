@@ -6,7 +6,9 @@ import com.neo.mypatients.patient.data.datasources.local.model.SyncStatus
 import com.neo.mypatients.patient.domain.model.Patient
 import com.neo.mypatients.patient.domain.repository.PatientRepository
 import com.neo.mypatients.utils.dummyPatients
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 
 class FakePatientRepository: PatientRepository {
@@ -57,9 +59,10 @@ class FakePatientRepository: PatientRepository {
         }
     }
 
-    override fun getPatientsByName(name: String): Flow<Resource<List<Patient>, DataError.Local>> {
+    override fun getPatientsByName(name: String): Flow<Resource<List<Patient>, DataError.Local>> = flow {
+        delay(20)
         val filteredPatients = patients.filter { it.name.contains(name, ignoreCase = true) }
-        return flowOf(Resource.Success(filteredPatients))
+        emit(Resource.Success(filteredPatients))
     }
 
     override suspend fun syncPatients(): Resource<Unit, DataError.Remote> {

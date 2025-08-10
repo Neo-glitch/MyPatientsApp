@@ -92,7 +92,7 @@ class PatientRepositoryImplTest {
         val result = repository.getPatient(1L)
 
         assertTrue(result is Resource.Success)
-        assertThat("John Doe").isEqualTo((result as Resource.Success).data.name)
+        assertThat(localPatient.name).isEqualTo((result as Resource.Success).data.name)
     }
 
     @Test
