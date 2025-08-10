@@ -1,8 +1,10 @@
 package com.neo.mypatients.core.navigation
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -16,6 +18,7 @@ fun MyPatientsAppNavigation(
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
+    val context = LocalContext.current
 
     NavHost(
         navController = navController,
@@ -47,6 +50,7 @@ fun MyPatientsAppNavigation(
                     )
                 },
                 onDeletePatientSuccess = {
+                    Toast.makeText(context, "Patient Info deleted successfully", Toast.LENGTH_SHORT).show()
                     navController.navigateUp()
                 },
                 onBackPress = {
@@ -60,6 +64,7 @@ fun MyPatientsAppNavigation(
             AddEditPatientScreen(
                 patientId = args.patientId,
                 onEditCompleted = {
+                    Toast.makeText(context, "Patient Info updated successfully", Toast.LENGTH_SHORT).show()
                     navController.popBackStack(route = PatientsScreen, inclusive = false)
                 },
                 onBackPress = {

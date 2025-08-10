@@ -216,9 +216,7 @@ fun CheckAndRequestNotificationPermissionRequest() {
     val requestPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
-        if (isGranted) {
-            Toast.makeText(context, "Notification permission granted", Toast.LENGTH_SHORT).show()
-        } else {
+        if (!isGranted) {
             Toast.makeText(context, "Notification permission denied", Toast.LENGTH_SHORT).show()
         }
     }
