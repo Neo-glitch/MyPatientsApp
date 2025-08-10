@@ -4,12 +4,11 @@ import com.google.common.truth.Truth.assertThat
 import com.neo.mypatients.MainDispatcherRule
 import com.neo.mypatients.core.domain.Resource
 import com.neo.mypatients.patient.data.datasources.local.PatientLocalDataSource
-import com.neo.mypatients.patient.data.datasources.local.model.Gender
 import com.neo.mypatients.patient.data.datasources.local.model.SyncStatus
 import com.neo.mypatients.patient.data.datasources.remote.PatientRemoteDataSource
 import com.neo.mypatients.patient.data.mapper.toLocal
-import com.neo.mypatients.patient.domain.model.Patient
 import com.neo.mypatients.patient.domain.repository.PatientRepository
+import com.neo.mypatients.utils.dummyPatient
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -48,7 +47,7 @@ class PatientRepositoryImplTest {
 
     @Test
     fun `upsertPatient should return Success when dao call succeeds`() = runTest {
-        val patient = dummyPatient()
+        val patient = dummyPatient
         whenever(localDataSource.upsertPatient(any())).thenReturn(Unit)
         val result = repository.upsertPatient(patient)
 
@@ -58,7 +57,7 @@ class PatientRepositoryImplTest {
 
     @Test
     fun `upsertPatient should return Error when dao throws exception`() = runTest {
-        val patient = dummyPatient()
+        val patient = dummyPatient
         whenever(localDataSource.upsertPatient(any())).thenThrow(IllegalArgumentException())
         val result = repository.upsertPatient(patient)
 
@@ -87,7 +86,7 @@ class PatientRepositoryImplTest {
 
     @Test
     fun `getPatient should return Success with mapped domain object`() = runTest {
-        val localPatient = dummyPatient().toLocal()
+        val localPatient = dummyPatient.toLocal()
         whenever(localDataSource.getPatient(any())).thenReturn(localPatient)
 
         val result = repository.getPatient(1L)
@@ -98,7 +97,7 @@ class PatientRepositoryImplTest {
 
     @Test
     fun `getPatientsByName should emit Success with mapped list`() = runTest {
-        val localPatients = listOf(dummyPatient().toLocal())
+        val localPatients = listOf(dummyPatient.toLocal())
         whenever(localDataSource.getPatientsByName("John")).thenReturn(flowOf(localPatients))
 
         val result = repository.getPatientsByName("John").first()
@@ -121,21 +120,13 @@ class PatientRepositoryImplTest {
     fun `syncPatients should return Error when any sync operation fails`() = runTest {
         whenever(localDataSource.getPatientBySyncStatus(SyncStatus.PENDING_DELETE)).thenReturn(emptyList())
         whenever(localDataSource.getPatientBySyncStatus(SyncStatus.PENDING_UPDATE)).thenReturn(emptyList())
-        whenever(localDataSource.getPatientBySyncStatus(SyncStatus.PENDING_CREATE)).thenReturn(listOf(dummyPatient().toLocal()))
+        whenever(localDataSource.getPatientBySyncStatus(SyncStatus.PENDING_CREATE)).thenReturn(listOf(dummyPatient.toLocal()))
         whenever(remoteDataSource.syncPatient()).thenThrow(IllegalArgumentException())
 
         val result = repository.syncPatients()
         assertTrue(result is Resource.Error)
     }
 
-    private fun dummyPatient() = Patient(
-        id = 1L,
-        name = "John Doe",
-        age = 30,
-        gender = Gender.Male,
-        phoneNumber = "1234567890",
-        medicalCondition = "Hypertension",
-        syncStatus = SyncStatus.SYNCED
-    )
+
 
 }
