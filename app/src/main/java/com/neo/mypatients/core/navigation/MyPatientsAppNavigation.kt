@@ -23,7 +23,6 @@ fun MyPatientsAppNavigation(
     NavHost(
         navController = navController,
         startDestination = PatientsScreen,
-        modifier = modifier.fillMaxSize()
     ) {
         composable<PatientsScreen> {
             PatientsScreen(

@@ -2,8 +2,10 @@ package com.neo.mypatients.core.presentation.components.input
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -127,18 +129,6 @@ fun MyPatientsAppTextInputField(
             label = label?.let {
                 {
                     Text(text = it, style = LocalTextStyle.current)
-//                    SabiInputLabel(
-//                        text = it,
-//                        style = if (isFocusedOrValueNotBlank)
-//                            SabiTheme.typography.titleTinySemi.copy(
-//                                fontWeight = FontWeight.Normal,
-//                                color = if (showError) LocalContentColor.current else SabiTheme.colors.neutrals.grey200TitleSecondary
-//                            )
-//                        else
-//                            textStyle.copy(
-//                                color = SabiTheme.colors.neutrals.grey100Disabled
-//                            )
-//                    )
                 }
             },
             placeholder = placeholder?.let {
@@ -165,7 +155,12 @@ fun MyPatientsAppTextInputField(
         )
         if (showMaxLengthCounter) {
             maxLength?.let {
-                MyPatientAppInputCounter(length = value.length, maxLength = it)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    MyPatientAppInputCounter(length = value.length, maxLength = it)
+                }
             }
         }
     }

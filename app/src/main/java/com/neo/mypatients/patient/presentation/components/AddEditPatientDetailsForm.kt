@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import com.neo.mypatients.R
 import com.neo.mypatients.core.presentation.components.input.MyPatientsAppTextInputField
 import com.neo.mypatients.core.utils.orEmpty
@@ -164,6 +165,7 @@ private fun InputDetailItem(
             readOnly = readOnly,
             placeholder = placeHolder,
             maxLength = maxLength,
+            showMaxLengthCounter = maxLength != null && !readOnly,
             enableClearButton = enableClearButton && !readOnly,
             keyboardType = keyboardType,
             imeAction = imeAction,

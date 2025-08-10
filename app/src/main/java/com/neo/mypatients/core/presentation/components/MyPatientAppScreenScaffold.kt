@@ -16,7 +16,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 
 @Composable
-    fun MyPatientsAppScreenScaffold(
+fun MyPatientsAppScreenScaffold(
     modifier: Modifier = Modifier,
     contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     containerColor: Color = MaterialTheme.colorScheme.background,
@@ -36,11 +36,11 @@ import androidx.compose.ui.platform.LocalFocusManager
                     focusManager.clearFocus()
                 }
             },
-        contentWindowInsets = contentWindowInsets,
+//        contentWindowInsets = contentWindowInsets,
         containerColor = containerColor,
         topBar = topBar,
         bottomBar = bottomBar,
-        floatingActionButton = floatingActionButton ,
+        floatingActionButton = floatingActionButton,
         content = content
     )
 }
