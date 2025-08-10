@@ -23,12 +23,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyPatientsTheme {
                 MyPatientsAppNavigation()
-//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                    Greeting(
-//                        name = "Android",
-//                        modifier = Modifier.padding(innerPadding)
-//                    )
-//                }
             }
         }
     }
