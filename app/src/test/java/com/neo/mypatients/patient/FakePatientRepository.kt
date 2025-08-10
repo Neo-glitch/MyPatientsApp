@@ -34,12 +34,16 @@ class FakePatientRepository: PatientRepository {
 
     override suspend fun softDeletePatient(id: Long): Resource<Unit, DataError.Local> {
         val index = patients.indexOfFirst { it.id == id }
+        if (index == -1) return Resource.Error(DataError.Local.DATABASE_ERROR)
+
         patients[index] = patients[index].copy(syncStatus = SyncStatus.PENDING_DELETE)
         return Resource.Success(Unit)
     }
 
     override suspend fun deletePatient(id: Long): Resource<Unit, DataError.Local> {
         val index = patients.indexOfFirst { it.id == id }
+        if (index == -1) return Resource.Error(DataError.Local.DATABASE_ERROR)
+
         patients.removeAt(index)
         return Resource.Success(Unit)
     }
