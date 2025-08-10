@@ -32,7 +32,7 @@ Built with modern Android development tools and best practices.
 - **Coroutines & Flow** – Asynchronous programming  
 - **Material Design 3** – Modern UI components and theming  
 - **Navigation Component** – Screen navigation  
-- **ViewModel & LiveData** – Architecture components  
+- **ViewModel & Flows** – Architecture components  
 
 ---
 
