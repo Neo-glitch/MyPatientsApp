@@ -9,16 +9,16 @@ import kotlinx.coroutines.flow.Flow
 
 interface PatientRepository {
 
-    suspend fun upsertPatient(patient: LocalPatient): Resource<Unit, DataError.Local>
+    suspend fun upsertPatient(patient: Patient): Resource<Unit, DataError.Local>
 
     suspend fun softDeletePatient(id: Long): Resource<Unit, DataError.Local>
 
     suspend fun deletePatient(id: Long): Resource<Unit, DataError.Local>
 
-    fun getPatientsByOptionalFilters(
-        name: String? = null,
-        age: Int? = null,
-        gender: Gender? = null
+    suspend fun getPatient(id: Long): Resource<Patient, DataError.Local>
+
+    fun getPatientsByName(
+        name: String = "",
     ): Flow<Resource<List<Patient>, DataError.Local>>
 
     suspend fun syncPatients(): Resource<Unit, DataError.Remote>

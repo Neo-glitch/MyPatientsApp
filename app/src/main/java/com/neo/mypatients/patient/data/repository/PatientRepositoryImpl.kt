@@ -2,7 +2,7 @@ package com.neo.mypatients.patient.data.repository
 
 import com.neo.mypatients.core.domain.DataError
 import com.neo.mypatients.core.domain.Resource
-import com.neo.mypatients.core.network.NetworkHelper
+import com.neo.mypatients.core.data.network.NetworkHelper
 import com.neo.mypatients.core.utils.GeneralExceptionHandler
 import com.neo.mypatients.patient.data.datasources.local.PatientLocalDataSource
 import com.neo.mypatients.patient.data.datasources.local.model.Gender
@@ -10,6 +10,7 @@ import com.neo.mypatients.patient.data.datasources.local.model.LocalPatient
 import com.neo.mypatients.patient.data.datasources.local.model.SyncStatus
 import com.neo.mypatients.patient.data.datasources.remote.PatientRemoteDataSource
 import com.neo.mypatients.patient.data.mapper.toDomain
+import com.neo.mypatients.patient.data.mapper.toLocal
 import com.neo.mypatients.patient.domain.model.Patient
 import com.neo.mypatients.patient.domain.repository.PatientRepository
 import kotlinx.coroutines.async
@@ -24,9 +25,9 @@ class PatientRepositoryImpl(
     private val remoteDataSource: PatientRemoteDataSource
 ): PatientRepository {
 
-    override suspend fun upsertPatient(patient: LocalPatient): Resource<Unit, DataError.Local> {
+    override suspend fun upsertPatient(patient: Patient): Resource<Unit, DataError.Local> {
         return try {
-            localDataSource.upsertPatient(patient)
+            localDataSource.upsertPatient(patient.toLocal())
             Resource.Success(Unit)
         } catch (throwable: Throwable) {
             Resource.Error(GeneralExceptionHandler.getLocalError(throwable))
@@ -51,12 +52,19 @@ class PatientRepositoryImpl(
         }
     }
 
-    override fun getPatientsByOptionalFilters(
-        name: String?,
-        age: Int?,
-        gender: Gender?
+    override suspend fun getPatient(id: Long): Resource<Patient, DataError.Local> {
+        return try {
+            val patient = localDataSource.getPatient(id)
+            Resource.Success(patient.toDomain())
+        } catch (throwable: Throwable) {
+            Resource.Error(GeneralExceptionHandler.getLocalError(throwable))
+        }
+    }
+
+    override fun getPatientsByName(
+        name: String,
     ): Flow<Resource<List<Patient>, DataError.Local>> {
-        return localDataSource.getPatientsByOptionalFilters(name, age, gender)
+        return localDataSource.getPatientsByName(name)
             .map { patients ->
                 Resource.Success(patients.map { it.toDomain() })
             }.catch { throwable ->
@@ -75,14 +83,14 @@ class PatientRepositoryImpl(
             val pendingInsertPatients = localDataSource.getPatientBySyncStatus(SyncStatus.PENDING_CREATE)
 
             supervisorScope {
-                val response = listOf(
+                val responses = listOf(
                     async { syncPendingDeletePatients(pendingDeletePatients) },
                     async { syncPendingUpdatePatients(pendingUpdatePatients) },
                     async { syncPendingInsertPatients(pendingInsertPatients) }
                 ).awaitAll()
 
-                if (response.any { it is Resource.Error }) {
-                    result = response.first { it is Resource.Error } as Resource.Error
+                if (responses.any { it is Resource.Error }) {
+                    result = responses.first { it is Resource.Error } as Resource.Error
                 }
             }
 

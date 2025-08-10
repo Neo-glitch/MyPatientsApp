@@ -9,5 +9,5 @@ object K {
 
     const val TEST_NETWORK_HOST_NAME = "www.google.com"
     const val BASE_URL = "https://my-json-server.typicode.com/Neo-glitch/MyPatientsServer/"
-    const val SYNC_ENDPOINT = "posts"
+    const val SYNC_ENDPOINT = "sync"
 }

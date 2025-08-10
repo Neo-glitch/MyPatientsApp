@@ -1,6 +1,6 @@
 package com.neo.mypatients.patient.data.datasources.local
 
-import com.neo.mypatients.core.database.MyPatientAppDatabase
+import com.neo.mypatients.core.data.database.MyPatientAppDatabase
 import com.neo.mypatients.patient.data.datasources.local.model.Gender
 import com.neo.mypatients.patient.data.datasources.local.model.LocalPatient
 import com.neo.mypatients.patient.data.datasources.local.model.SyncStatus
@@ -28,11 +28,13 @@ class PatientLocalDataSourceImpl(
         return patientDao.getUsersBySyncStatus(status)
     }
 
-    override fun getPatientsByOptionalFilters(
-        name: String?,
-        age: Int?,
-        gender: Gender?
+    override suspend fun getPatient(id: Long): LocalPatient {
+        return patientDao.getPatientById(id)
+    }
+
+    override fun getPatientsByName(
+        name: String,
     ): Flow<List<LocalPatient>> {
-        return patientDao.getUsersByOptionalFilters(name, age, gender)
+        return patientDao.getPatientsByName(name)
     }
 }

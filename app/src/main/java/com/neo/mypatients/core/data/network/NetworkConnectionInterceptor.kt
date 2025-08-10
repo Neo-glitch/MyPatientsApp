@@ -1,4 +1,4 @@
-package com.neo.mypatients.core.network
+package com.neo.mypatients.core.data.network
 
 import com.neo.mypatients.core.utils.K.TEST_NETWORK_HOST_NAME
 import com.neo.mypatients.core.utils.K.TEST_NETWORK_PORT

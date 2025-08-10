@@ -1,4 +1,4 @@
-package com.neo.mypatients.core.database
+package com.neo.mypatients.core.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

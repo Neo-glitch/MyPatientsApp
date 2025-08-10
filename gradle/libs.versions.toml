@@ -35,13 +35,16 @@ hilt-work = "1.0.0"
 hilt-navigation = "1.2.0"
 
 # Room
-room = "2.6.1"
+room = "2.7.2"
 
 # Splash
 splashscreen = "1.0.1"
 
 # work manager
 work-runtime-ktx = "2.8.1"
+
+# styled-toast
+styleabletoast = "2.4.0"
 
 # Testing
 truth = "1.1.2"
@@ -108,6 +111,9 @@ splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "spla
 # Work Manager
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "work-runtime-ktx" }
 
+# Styled Toast
+styleabletoast = { module = "io.github.muddz:styleabletoast", version.ref = "styleabletoast" }
+
 # Testing
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
@@ -121,6 +127,6 @@ arch-core-testing = { module = "androidx.arch.core:core-testing", version.ref = 
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 

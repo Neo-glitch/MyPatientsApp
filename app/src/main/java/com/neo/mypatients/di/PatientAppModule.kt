@@ -4,9 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.neo.mypatients.BuildConfig
-import com.neo.mypatients.MyPatientApp
-import com.neo.mypatients.core.database.MyPatientAppDatabase
-import com.neo.mypatients.core.network.NetworkConnectionInterceptor
+import com.neo.mypatients.core.data.database.MyPatientAppDatabase
+import com.neo.mypatients.core.data.network.NetworkConnectionInterceptor
 import com.neo.mypatients.core.utils.K
 import com.neo.mypatients.core.utils.K.API_TIMEOUT
 import dagger.Module
@@ -30,7 +29,6 @@ class PatientAppModule {
     private val json = Json {
         coerceInputValues = true
         ignoreUnknownKeys = true
-        isLenient = true
     }
 
     @Singleton
@@ -41,7 +39,7 @@ class PatientAppModule {
         return Room.databaseBuilder(
             context,
             MyPatientAppDatabase::class.java,
-            "newsy_db"
+            "my_patients_db"
         )
             .build()
     }
@@ -66,11 +64,12 @@ class PatientAppModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        val contentType = "application/json".toMediaType()
         return Retrofit.Builder()
             .baseUrl(K.BASE_URL)
-            .client(provideOkHttpClient())
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+            .client(okHttpClient)
+            .addConverterFactory(json.asConverterFactory(contentType))
             .build()
     }
 

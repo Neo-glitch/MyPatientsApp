@@ -15,10 +15,10 @@ interface PatientLocalDataSource {
 
     suspend fun getPatientBySyncStatus(status: SyncStatus): List<LocalPatient>
 
-    fun getPatientsByOptionalFilters(
-        name: String? = null,
-        age: Int? = null,
-        gender: Gender? = null
+    suspend fun getPatient(id: Long): LocalPatient
+
+    fun getPatientsByName(
+        name: String,
     ): Flow<List<LocalPatient>>
 
 }
