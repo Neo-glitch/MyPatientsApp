@@ -1,6 +1,6 @@
 import androidx.compose.ui.graphics.Color
 
-// 🌞 Light Theme Colors
+// Light Theme Colors
 val md_theme_light_primary = Color(0xFF0084E7)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
 val md_theme_light_primaryContainer = Color(0xFFD0EBFF)
@@ -34,7 +34,7 @@ val md_theme_light_grey_100 = Color(0xFFF7F7F8)
 val md_theme_light_grey_200 = Color(0xFF999999)
 
 
-// 🌙 Dark Theme Colors
+// Dark Theme Colors
 val md_theme_dark_primary = Color(0xFF73C3FF)
 val md_theme_dark_onPrimary = Color(0xFF00355C)
 val md_theme_dark_primaryContainer = Color(0xFF004F8B)
