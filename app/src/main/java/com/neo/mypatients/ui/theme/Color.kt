@@ -1,3 +1,5 @@
+package com.neo.mypatients.ui.theme
+
 import androidx.compose.ui.graphics.Color
 
 // Light Theme Colors
